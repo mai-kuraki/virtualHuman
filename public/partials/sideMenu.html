@@ -1,0 +1,16 @@
+<div class="app-aside open-aside move-200" data-status="open" ng-controller="asideMenuCtrl">
+	<ul class="aside-nav-item">
+		<li class="root-nav-li" ng-repeat="menu in menuData">
+			<div class="root-nav clearfix">
+				<span class="menu-label" data-icon="{{menu.icon}}">{{menu.label}}</span>
+			</div>
+			<ul class="sub-nav-item" style="display:{{menu.display}}">
+				<li class="clearfix sub-nav" ng-repeat="submenu in menu.children">
+					<a ui-sref='{{submenu.link}}'>
+						<span class="menu-label" data-icon="{{submenu.icon}}">{{submenu.label}}</span>
+					</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>

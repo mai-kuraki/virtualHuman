@@ -1,0 +1,37 @@
+<table class="manage-items b-l-r" ng-controller="personItemCtrl">
+	<tr class="table-head">
+		<td class="mi-td1"></td>
+		<td class="mi-td7">微博昵称</td>
+		<td class="mi-td2">姓名</td>
+		<td class="mi-td3">性别</td>
+		<td class="mi-td4">年龄</td>
+		<td class="mi-td5">地区</td>
+		<td class="mi-td6">操作</td>
+	</tr>
+	<tr ng-repeat="person in library">
+		<td class="mi-td1"><input type="checkbox" name="{{inputName}}" value="{{person.ID}}" ng-click="isAllChecked(inputName)"></td>
+		<td class="mi-td7"><a href="{{person.SINA_URL}}" target="_blank">{{person.SINA_WEIBO}}</a></td>
+		<td class="mi-td2">{{person.NAME}}</td>
+		<td class="mi-td3">{{person.GENDER}}</td>
+		<td class="mi-td4">{{person.AGE}}</td>
+		<td class="mi-td5">{{person.LOCATION}}</td>
+		<td class="mi-td6">
+			<a ui-sref="portrait({id:person.ID})">查看</a>
+			<a ui-sref="editInformation">编辑</a>
+		</td>
+	</tr>
+	<tr>
+		<td class="mi-td1"><input type="checkbox" id="all{{inputName}}" name="all{{inputName}}" ng-click="inputCheckAll(inputName,$event)"></td>
+		<td class="mi-tdall" colspan="6">
+			<div class="check-all">
+				<a href="javascript:void(0);" ng-click="checkAll(inputName,'check')">全选</a>
+				<em>/</em>
+				<a href="javascript:void(0);" ng-click="checkAll(inputName,'uncheck')">全不选</a>
+			</div>
+			<div class="export-all">
+				<em>选中项：</em>
+				<a href="">导出</a>
+			</div>
+		</td>
+	</tr>
+</table>

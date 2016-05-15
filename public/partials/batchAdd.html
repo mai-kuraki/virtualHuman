@@ -1,0 +1,48 @@
+<div class="virtual-man-search" ng-controller="addCtrl" ng-init="initForm()">
+	<div class="v-m-s-con b-w clearfix" ng-controller="batchAddCtrl">
+		<mytoast></mytoast>
+		<div class="detail-tab-box">
+			<ul class="detail-tab add-tab clearfix">
+				<a ui-sref="add"><li>添加单个虚拟人</li></a>
+				<a href="javascript:void(0);"><li class="cur-tab">批量导入虚拟人</li></a>
+			</ul>
+		</div>
+		<ul class="search-condition">
+			<li class="clearfix condition-line">
+				<div class="choose-condition">
+					<label>请选择导入文件</label>
+				</div>
+				<i class="fh">：</i>
+				<div class="condition-value">
+					<input type="text" class="c-v-area b-w" readOnly value="{{fileName}}">
+				</div>
+				<div ng-if="pageName == 'add' || pageName == 'editClue'">
+					<a href="javascript:void(0);" 
+						class="add-fied common-btn upload-file-btn" 
+						ngf-select="uploadFiles($files, $invalidFiles)">
+						浏览
+					</a>
+				</div>
+				<span class="upload-tip">（支持Excel、CSV文件）</span>
+			</li>
+			<li class="clearfix condition-line">
+				<div class="choose-condition">
+					<label>所属虚拟人库</label>
+				</div>
+				<i class="fh">：</i>
+				<div class="condition-value">
+					<select class="value-select b-w" 
+					ng-model="defaultLibrary" 
+					ng-options="library.value as library.text for library in personLibrary">
+					</select>
+				</div>
+				<div ng-if="pageName == 'add'">
+					<a href="javascript:void(0);" class="add-fied common-btn">新增库</a>
+				</div>
+			</li>
+		</ul>
+		<!-- ui-sref="batchAddResult" -->
+		<a  class="search-submit common-btn" ng-click="importFile()">导入</a>
+	</div>
+</div>
+<checkstatus></checkstatus>

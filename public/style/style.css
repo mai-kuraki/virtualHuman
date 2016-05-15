@@ -1,0 +1,882 @@
+body{
+}
+.app-aside{
+	min-height: 100%;
+	background: #3A3F51;
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
+}
+.open-aside{
+	width: 200px;
+}
+.close-aside{
+	width: 50px;
+}
+.aside-nav-item{
+	width: 100%;
+	margin-top: 50px;
+}
+.aside-nav-item .root-nav{
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	cursor: pointer;
+}
+.aside-nav-item .root-nav:hover{
+	background: #32374A;
+	color: #FFF;
+}
+.aside-nav-item .root-nav em{
+	float: left;
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	color: #1BBC9B;
+	font-size: 18px;
+}
+.aside-nav-item .root-nav span{
+	float: left;
+	color: #FFF;
+	margin-left: 12px;
+}
+.sub-nav-item{
+	display: none;
+}
+.sub-nav-item .sub-nav{
+	background: #2E3344;
+	height: 50px;
+	line-height: 50px;
+	cursor: pointer;
+}
+.sub-nav-item .sub-nav:hover{
+	background: #32374A;
+}
+.sub-nav-item .sub-nav em{
+	float: left;
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	color: #B4B6BD;
+	font-size: 18px;
+}
+.sub-nav-item .sub-nav:hover em{
+	color: #FFF;
+}
+.sub-nav-item .sub-nav span{
+	float: left;
+	color: #FFF;
+	margin-left: 12px;
+}
+
+
+
+.app-content{
+	width: auto;
+	min-height: 100%;
+	background: #F0F3F4;
+}
+.app-content-w{
+	margin-left: 200px;
+}
+.app-content-s{
+	margin-left: 50px;
+}
+.app-header{
+	height: 50px;
+	padding-top: 1px;
+	background: #FFF;
+}
+.menu-btn{
+	width: 36px;
+	height: 36px;
+	line-height: 36px;
+	text-align: center;
+	font-size: 22px;
+	margin-left: 8px;
+	margin-top: 7px;
+	cursor: pointer;
+	border-radius: 3px;
+	float: left;
+}
+.menu-btn:hover{
+	background: #DBDBDB;
+}
+.menu-btn em{
+	display: none;
+}
+.menu-btn .cur-status{
+	display: block;
+}
+.system-info{
+	float: left;
+	margin-left: 18px;
+}
+.system-info img{
+	float: left;
+	width: 28px;
+	height: 28px;
+	margin-top: 11px;
+}
+.system-info span{
+	float: left;
+	margin-left: 8px;
+	font-size: 20px;
+	line-height: 50px;
+}
+
+.user-info{
+	float: right;
+	padding: 0px 20px;
+	margin-top: -1px;
+	cursor: pointer;
+	height: 49px;
+	position: relative;
+}
+.user-info:hover{
+	background: #F5F7FF;
+}
+.user-info:hover .user-info-item{
+	display: block;
+}
+.user-info img{
+	float: right;
+	width: 36px;
+	height: 36px;
+	margin-top: 7px;
+	border-radius: 50%;
+}
+.user-info .user-name{
+	float: right;
+	margin-right: 18px;
+	line-height: 50px;
+}
+.user-info-item{
+	display: none;
+	position: absolute;
+	width: 160px;
+	background: #FFF;
+	padding: 4px 0px;
+	border-radius: 0px 0px 3px 3px;
+	box-shadow: 0px 2px 3px rgba(183,183,183,.3);
+	left: 0px;
+	top: 49px;
+}
+.user-info .user-info-item li{
+	height: 36px;
+	line-height: 36px;
+}
+.user-info-item li i{
+	margin-left: 8px;
+	font-size: 20px;
+	float: left;
+}
+.user-info-item li span{
+	margin-left: 6px;
+	float: left;
+}
+.user-info-item li:hover{
+	background: #EAEAEA;
+}
+
+.main-content{
+	padding: 20px;
+}
+
+.common-btn{
+	display: block;
+	height: 30px;
+	padding: 0px 18px;
+	color: #FFF;
+	background: #1BBC9B;
+	line-height: 30px;
+	border-radius: 3px;
+}
+.common-btn:hover{
+	background: #0F9376;
+}
+
+.v-m-l-title{
+	width: 100%;
+	padding: 18px 0px;
+	background: #FFF;
+	border-radius: 3px 3px 0px 0px;
+}
+.v-m-l-title label{
+	float: left;
+	margin-left: 24px;
+	line-height: 30px;
+}
+.v-m-l-title select{
+	float: left;
+	margin-left: 24px;
+	width: 140px;
+	outline: none;
+	height: 30px;
+	border-radius: 3px;
+}
+.v-m-l-title a{
+	float: left;
+	margin-left: 24px;
+}
+.v-m-l-title a:hover{
+	background: #0F9376;
+}
+
+.manage-items{
+	width: 100%;
+	background: #FFF;
+	border-collapse:collapse;
+}
+.table-head{
+	font-weight: bold;
+}
+.manage-items tr{
+	height: 50px;
+	line-height: 50px;
+}
+.manage-items tr:nth-child(even){
+	background: #F5F7FF;
+}
+.manage-items tr td{
+	text-align: center;
+}
+.mi-td1{
+	width: 100px;
+}
+.mi-td1 input{
+	margin-left: 60px;
+}
+.mi-td2{
+	width: 100px;
+}
+.mi-td3{
+	width: 100px;
+}
+.mi-td4{
+	width: 100px;
+}
+.mi-td5{
+	width: auto;
+}
+.mi-td6{
+	width: auto;
+}
+.manage-items tr .mi-td7{
+	width: 200px;
+	text-align: left;
+}
+.mi-td7 a{
+	color: #1BBC9B;
+	text-decoration: underline;
+}
+.mi-td6 a{
+	margin-left: 8px;
+	color: #1BBC9B;
+}
+.mi-td6 a:hover{
+	text-decoration: underline;
+}
+.manage-items tr .mi-tdall{
+	text-align: left;
+}
+.mi-tdall a{
+	color: #1BBC9B;
+}
+.mi-tdall a:hover{
+	text-decoration: underline;
+}
+.mi-tdall .check-all{
+	float: left;
+}
+.mi-tdall .export-all{
+	float: left;
+	margin-left: 28px;
+}
+
+
+.paging-wrap{
+	width: 100%;
+	background: #FFF;
+	padding: 20px 0px;
+	border-radius: 0px 0px 3px 3px;
+}
+.paging{
+	float: right;
+	margin-right: 24px;
+	border-radius: 3px;
+}
+.paging li{
+	float: left;
+	height: 32px;
+	line-height: 32px;
+	padding: 0px 18px;
+	background: #F1F5FD;
+	cursor: pointer;
+}
+.paging li:hover{
+	background: #D1DEFF;
+}
+.paging .cur-page{
+	background: #1BBC9B;
+	color: #FFF;
+}
+.paging .cur-page:hover{
+	background: #1BBC9B;
+	color: #FFF;
+}
+.paging .page-disable{
+	cursor: not-allowed;
+	color: #CECECE;
+}
+.paging .page-disable:hover{
+	background: #F1F5FD;
+	color: #CECECE;
+}
+
+
+/**************虚拟人详情***************/
+.virtual-man-detail{
+	width: 100%;
+	padding: 18px 0px;
+    background: #FFF;
+    border-radius: 3px;
+}
+.virtual-man-detail .v-m-d-title img{
+	float: left;
+	width: 32px;
+	height: 32px;
+	border-radius: 5px;
+	margin-left: 24px;
+}
+.virtual-man-detail .v-m-d-title span{
+	float: left;
+	line-height: 32px;
+	margin-left: 18px;
+	font-size: 18px;
+}
+
+.detail-tab-box{
+	width: 100%;
+	padding: 20px;
+}
+.detail-tab{
+	width: 100%;
+	border-radius: 5px;
+	border: solid 1px #1BBC9B;
+	overflow: hidden;
+	margin: 12px 0px 24px;
+}
+.detail-tab li{
+	float: left;
+	width: 33.33%;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	color: #1BBC9B;
+	cursor: pointer;
+	border-left: solid 1px #1BBC9B;
+}
+.detail-tab a:nth-child(1) li{
+	border-left: none;
+}
+.detail-tab li:hover{
+	background: #E8FAF7;
+}
+.detail-tab .cur-tab{
+	background: #1BBC9B;
+	color: #FFF;
+	cursor: auto;
+}
+.detail-tab .cur-tab:hover{
+	background: #1BBC9B;
+}
+
+.detail-tab-content{
+	width: 100%;
+}
+.portrait-content{
+	border-radius: 5px;
+	background: #F5F5F5;
+	height: 1300px;
+}
+.export-btn{
+	float: left;
+	margin-left: 24px;
+}
+
+
+/******查询虚拟人******/
+.v-m-s-con{
+	background: #FFF;
+}
+.v-m-s-title{
+	margin: 18px 0px;
+	font-size: 24px;
+	margin-left: 24px;
+}
+.search-condition{
+	margin-left: 24px;
+}
+.condition-line{
+	padding: 8px 0px;
+}
+.condition-line .choose-condition{
+	float: left;
+	width: 150px;
+}
+.choose-condition label{
+	text-align: right;
+	display: block;
+	width: 150px;
+	line-height: 32px;
+}
+.choose-condition .condition-type{
+	width: 150px;
+	height: 32px;
+	border-radius: 3px;
+	outline: none;
+}
+.condition-line .fh{
+	float: left;
+	margin: 0px 8px;
+	line-height: 32px;
+}
+.condition-line .condition-value{
+	float: left;
+	width: 250px;
+}
+.condition-value .c-v-area{
+	width: 250px;
+	height: 32px;
+	border-radius: 3px;
+	outline: none;
+	padding: 0px 12px;
+}
+.condition-value .value-select{
+	width: 250px;
+	height: 32px;
+	border-radius: 3px;
+	outline: none;
+}
+.condition-line .add-fied{
+	float: left;
+	margin-left: 24px;
+}
+.search-submit{
+	margin: 24px 0px;
+	width: 200px;
+	margin-left: 150px;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	cursor: pointer;
+}
+
+
+.v-m-l-title .app-back{
+	float: left;
+	line-height: 30px;
+	padding: 0px 8px;
+	border-radius: 3px;
+}
+.v-m-l-title .app-back i{
+	font-family: '宋体';
+	margin-right: 8px;
+}
+.v-m-l-title .app-back:hover{
+	background: #DBDBDB;
+}
+
+.selected-condition{
+	float: left;
+}
+.selected-condition li{
+	float: left;
+	padding: 0px 8px;
+	border: solid 1px #1BBC9B;
+	color: #1BBC9B;
+	margin-left: 16px;
+	height: 30px;
+	line-height: 30px;
+}
+
+.add-tab li{
+	width: 50%;
+}
+
+/********虚拟人信息*******/
+.info-block{
+	margin: 12px 0px;
+}
+.info-title{
+	padding: 16px 0px;
+	font-size: 16px;
+	font-weight: bold;
+	text-indent: 8px;
+}
+.info-detal{
+	margin-top: 16px;
+}
+.user-headpic{
+	float: left;
+	width: 142px;
+	height: 142px;
+	border-radius: 3px;
+	overflow: hidden;
+	position: relative;
+}
+.edit-user-headpic{
+	cursor: pointer;
+}
+.user-headpic .edit-headimg{
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+	height: 40px;
+	line-height: 40px;
+	color: #FFF;
+	text-align: center;
+	background: rgba(0,0,0,.6);
+	text-align: center;
+	display: block;
+	width: 100%;
+}
+.user-headpic img{
+	width: 100%;
+	height: 100%;
+	border-radius: 3px;
+}
+.text-info-item{
+	width: 650px;
+	float: left;
+}
+.text-info-item .text-info{
+	width: 300px;
+	margin-bottom: 6px;
+	float: left;
+	margin-left: 18px;
+}
+.text-info-item .insert-text-info{
+	width: 600px;
+	margin-bottom: 6px;
+	float: left;
+	margin-left: 18px;
+}
+.text-info-item .insert-text-info select{
+    width: 70px;
+    height: 32px;
+    line-height: 32px;
+    padding: 0px 6px;
+    border-radius: 3px;
+    outline: none;
+}
+.text-info label{
+	font-weight: bold;
+	height: 32px;
+	line-height: 32px;
+	display: block;
+	float: left;
+	width: 70px;
+	margin-right: 6px;
+}
+.text-info span{
+	height: 32px;
+	line-height: 32px;
+	width: 220px;
+	float: left;
+}
+.text-info span input[type='text']{
+	width: 100%;
+	height: 32px;
+	line-height: 32px;
+	padding: 0px 6px;
+	border-radius: 3px;
+	outline: none;
+}
+.text-info span select{
+	width: 100%;
+	height: 32px;
+	line-height: 32px;
+	padding: 0px 6px;
+	border-radius: 3px;
+	outline: none;
+}
+.info-line{
+	margin-bottom: 6px;
+}
+.info-line label{
+	height: 32px;
+	line-height: 32px;
+	display: block;
+	float: left;
+	min-width: 70px;
+	margin-right: 6px;
+}
+.info-line .edit-label{
+	height: 32px;
+	line-height: 32px;
+	display: block;
+	float: left;
+	min-width: 140px;
+	margin-right: 6px;
+}
+.info-line .short-label{
+	width: 70px;
+	min-width: 70px;
+	margin-left: 24px;
+}
+.info-line label input[type='text']{
+	width: 120px;
+	height: 32px;
+	line-height: 32px;
+	padding: 0px 6px;
+	border-radius: 3px;
+	outline: none;
+}
+.info-line label select{
+	width: 120px;
+	height: 32px;
+	line-height: 32px;
+	padding: 0px 6px;
+	border-radius: 3px;
+	outline: none;
+}
+.info-line span{
+	height: 32px;
+	line-height: 32px;
+	width: 600px;
+	float: left;
+}
+.info-line .short-input{
+	height: 32px;
+	line-height: 32px;
+	width: 250px;
+	float: left;
+}
+.info-line span input[type='text']{
+	width: 100%;
+	height: 32px;
+	line-height: 32px;
+	padding: 0px 6px;
+	border-radius: 3px;
+	outline: none;
+}
+.info-line .insert-new-input{
+	width: 510px;
+}
+.info-line .insert-new-input input[type='text']{
+	width: 510px;
+}
+.info-line .short-input{
+	width: 250px;
+}
+.info-line .short-input input[type='text']{
+	width: 250px;
+}
+.info-line .insert-short-input{
+	width: 160px;
+}
+.info-line .insert-short-input input[type='text']{
+	width: 160px;
+}
+
+.addLine-btn{
+	float: left;
+	margin-left: 24px;
+	height: 32px;
+	line-height: 32px;
+}
+.clue-condition{
+	padding: 12px 0px 24px 0px;
+}
+.clue-condition .clue-library{
+	float: left;
+	margin-left: 24px;
+}
+.clue-condition .clue-library label{
+	float: left;
+	height: 32px;
+	line-height: 32px;
+	margin-right: 2px;
+}
+.clue-condition .clue-library select{
+	float: left;
+	width: 120px;
+	height: 32px;
+	line-height: 32px;
+	padding: 0px 6px;
+	border-radius: 3px;
+	outline: none;
+}
+.clue-condition .sequence-type{
+	float: left;
+	margin-left: 24px;
+}
+.clue-condition .sequence-type label{
+	float: left;
+	height: 32px;
+	line-height: 32px;
+	margin-right: 2px;
+}
+.clue-condition .sequence-type .sequence-item{
+	float: left;
+	height: 32px;
+	line-height: 32px;
+}
+.clue-condition .sequence-type .sequence-item a{
+	margin-right: 8px;
+	color: #1BBC9B;
+}
+.clue-condition .sequence-type .sequence-item a:hover{
+	text-decoration: underline;
+}
+.clue-condition .update-time{
+	float: left;
+	margin-left: 24px;
+}
+.clue-condition .update-time label{
+	float: left;
+	height: 32px;
+	line-height: 32px;
+	margin-right: 2px;
+}
+.clue-condition .update-time span{
+	height: 32px;
+	line-height: 32px;
+}
+
+.clue-items{
+	margin-top: 24px;
+}
+.clue-items .clue-item{
+	margin-bottom: 24px;
+	padding-bottom: 12px;
+	border-bottom: dashed 1px #DDD;
+}
+.clue-item .clue-item-line{
+	margin-bottom: 12px;
+}
+.clue-item .clue-item-line label{
+	font-weight: bold;
+	float: left;
+}
+.clue-item .clue-item-line span{
+	float: left;
+	width: 90%;
+}
+
+.import-result-tip{
+	font-size: 16px;
+	margin: 12px 0px;
+	margin-left: 24px;
+}
+.import-result-tip i{
+	color: red;
+	margin: 0px 4px;
+}
+.next-step-btn{
+	width: 460px;
+	margin: 36px auto 36px;
+}
+.next-step-btn a{
+	float: left;
+	margin: 0px 12px;
+}
+
+.upload-file-btn{
+	position: relative;
+}
+.upload-file-btn .upload-file{
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	display: block;
+	opacity: 0;
+}
+.upload-tip{
+	float: left;
+	height: 32px;
+	line-height: 32px;
+	margin-left: 18px;
+	color: red;
+}
+.cut-mask{
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.6);
+	z-index: 9;
+}
+.cut-pic-panel{
+	width: 600px;
+	height: 295px;
+	background: #FFF;
+	border-radius: 5px;
+	position: absolute;
+	left: 50%;
+	top: 230px;
+	margin-left: -300px;
+	z-index: 999;
+	padding: 20px;
+}
+.cut-img-box{
+	width: 400px;
+	height: 250px;
+	background: #DDD;
+	float: left;
+}
+.right-cut-panel{
+	width: 136px;
+	height: 295px;
+	margin-left: 20px;
+	float: left;
+}
+.cut-preview{
+	width: 136px;
+	height: 136px;
+	background: #DDD;
+}
+.cut-preview img{
+	width: 100%;
+	height: 100%;
+}
+img-crop {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  overflow: hidden;
+}
+img-crop canvas {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  outline: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  /* mobile webkit */
+}
+.confrim-upload-btn{
+	width: 100%;
+	text-align: center;
+	margin-top: 26px;
+	height: 40px;
+	line-height: 40px;
+}
+.esc-upload-btn{
+	width: 100%;
+	text-align: center;
+	margin-top: 8px;
+	height: 40px;
+	line-height: 40px;
+	background: #A5A5A5;
+}
+.esc-upload-btn:hover{
+	background: #868686;
+}

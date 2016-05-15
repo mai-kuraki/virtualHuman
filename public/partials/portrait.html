@@ -1,0 +1,18 @@
+<div class="virtual-man-detail b-w" ng-controller="portraitCtrl" ng-init="initData()">
+	<div class="v-m-d-title clearfix">
+		<img src="{{basicInfo.PHOTO}}">
+		<span>{{basicInfo.NAME}}</span>
+		<a href="javascript:void(0);" class="common-btn export-btn move-200">导出画像</a>
+	</div>
+	<div class="detail-tab-box">
+		<ul class="detail-tab clearfix">
+			<a href="javascript:void(0);"><li class="cur-tab">虚拟人画像</li></a>
+			<a ui-sref="information({id:id})"><li>用户资料详情</li></a>
+			<a ui-sref="clue({id:id})"><li>用户线索信息</li></a>
+		</ul>
+		<div class="detail-tab-content portrait-content" id="portrait-content">
+			<jsmind></jsmind>
+		</div>
+	</div>
+</div>
+<!-- <checkstatus></checkstatus> -->

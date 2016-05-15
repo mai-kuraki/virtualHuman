@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app='app'>
+  	<head>
+	    <meta charset="utf-8">
+	    <title>虚拟人-登陆</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <link rel="stylesheet" type="text/css" href="/style/common.css">
+	    <link rel="stylesheet" type="text/css" href="/style/login.css">
+	    <script type="text/javascript" src="/bower_components/angular/angular.min.js"></script>
+	    <script type="text/javascript" src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	    <script type="text/javascript" src="/js/angularUpload/ng-file-upload-shim.min.js"></script>
+		<script type="text/javascript" src="/js/angularUpload/ng-file-upload.min.js"></script>
+		<script type="text/javascript" src="/js/angularUpload/ng-file-upload-crop.js"></script>
+	    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.min.js"></script>
+	    <script type="text/javascript" src="/js/app.js"></script>
+	    <script type="text/javascript" src="/js/controllers/login.controller.js"></script>
+	    <script type="text/javascript" src="/js/directives/directive.js"></script>
+	    <script type="text/javascript" src="/js/services/service.js"></script>
+	</head>
+	<body class="login-body">
+		<div class="login-wrap" ng-controller="loginPanel" ng-keyup="keyboardEvent($event)" ng-init="checkStatus()">
+			<mytoast></mytoast>
+			<div class="sys-name" ng-init="getVerifycode()">虚拟人矩阵系统</div>
+			<div class="login-panel">
+				<div class="input-line username clearfix">
+					<span class="label-icon font-ico">&#xe87c;</span>
+					<input type="text" name="" ng-model="userName" placeHolder="请输入用户名">
+				</div>
+				<div class="input-line password clearfix">
+					<span class="label-icon font-ico">&#xe899;</span>
+					<input type="password" name="" ng-model="password" placeHolder="请输入密码">
+				</div>
+				<div class="input-line verifycode clearfix">
+					<input type="text" name="" ng-model="verifycode" placeHolder="请输入验证码">
+					<canvas class="code-area" id="canvas"></canvas>
+					<i class="font-ico move-200" title="卡不清,换一张" ng-click="getVerifycode()">&#xe5d5;</i>
+				</div>
+				<a href="javascript:void(0)" class="login-btn move-200" ng-click="submit()">登陆</a>
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,91 @@
+<div class="virtual-man-detail b-w" ng-controller="informationDetailCtrl" ng-init="initInformation()">
+	<div class="v-m-d-title clearfix">
+		<img src="{{basic.PHOTO}}">
+		<span>{{basic.NAME}}</span>
+		<a ui-sref="editInformation({id:id})" class="common-btn export-btn move-200">编辑资料</a>
+		<a href="javascript:void(0);" class="common-btn export-btn move-200">导出资料</a>
+	</div>
+	<div class="detail-tab-box">
+		<ul class="detail-tab clearfix">
+			<a ui-sref="portrait({id:id})"><li>虚拟人画像</li></a>
+			<a href="javascript:void(0);"><li class="cur-tab">用户资料详情</li></a>
+			<a ui-sref="clue({id:id})"><li>用户线索信息</li></a>
+		</ul>
+		<div class="detail-tab-content">
+			<div class="info-block">
+				<h3 class="info-title b-b">个人属性</h3>
+				<div class="info-detal clearfix">
+					<div class="user-headpic">
+						<img src="{{basic.PHOTO}}">
+					</div>
+					<div class="text-info-item clearfix">
+						<div class="text-info clearfix"><label>姓名：</label><span>{{basic.NAME}}</span></div>
+						
+						<div class="text-info clearfix"><label>身份证号：</label><span>{{basic.ID_NUMBER}}</span></div>
+						<div class="text-info clearfix"><label>性别：</label><span>{{basic.GENDER}}</span></div>
+						<div class="text-info clearfix"><label>婚姻状态：</label><span>{{basic.MARRIAGE}}</span></div>
+						<div class="text-info clearfix"><label>国籍：</label><span>{{basic.NATIONALITY}}</span></div>
+						
+						<div class="text-info clearfix"><label>所在地：</label><span>{{basic.LOCATION}}</span></div>
+						<div class="text-info clearfix"><label>生日：</label><span>{{basic.BIRTHDAY}}</span></div>
+						<div class="text-info clearfix"><label>发证地：</label><span>{{basic.ID_ADDRESS}}</span></div>
+					</div>
+				</div>
+			</div>
+			<div class="info-block">
+				<h3 class="info-title b-b">联系方式</h3>
+				<div class="info-detal clearfix">
+					<div class="info-line clearfix" ng-repeat="item in contact">
+						<label>{{item.TYPE}}：</label>
+						<span>{{item.CONTACT}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="info-block">
+				<h3 class="info-title b-b">学习经历</h3>
+				<div class="info-detal clearfix">
+					<div class="info-line clearfix" ng-repeat="item in learning">
+						<label>{{item.MAJOR_GRADE}}：</label>
+						<span>{{item.DISCRIPTION}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="info-block">
+				<h3 class="info-title b-b">社交</h3>
+				<div class="info-detal clearfix">
+					<div class="info-line clearfix" ng-repeat="item in social">
+						<label>{{item.MEDIA_NAME}}：</label>
+						<span>{{item.NICK_NAME}} &nbsp;&nbsp; 注册时间：{{item.REGISTRATION_TIME}} </span>
+					</div>
+				</div>
+			</div>
+			<div class="info-block">
+				<h3 class="info-title b-b">金融支付</h3>
+				<div class="info-detal clearfix">
+					<div class="info-line clearfix" ng-repeat="item in payment">
+						<label>{{item.PAYMENT_PLATFORM}}：</label>
+						<span>{{item.PAYMENT_ACCOUNT}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="info-block">
+				<h3 class="info-title b-b">事件</h3>
+				<div class="info-detal clearfix">
+					<div class="info-line clearfix" ng-repeat="item in event">
+						<label>{{item.TIME}}：</label>
+						<span>{{item.EVENT_CONTENT}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="info-block">
+				<h3 class="info-title b-b">标签</h3>
+				<div class="info-detal clearfix">
+					<div class="info-line clearfix" ng-repeat="item in label">
+						<span>{{item.LABEL}}</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- <checkstatus></checkstatus> -->

@@ -1,0 +1,86 @@
+<div class="virtual-man-detail b-l-t-r" ng-controller="clueCtrl" ng-init="initData()">
+	<div class="v-m-d-title clearfix">
+		<img src="{{basicInfo.PHOTO}}">
+		<span>{{basicInfo.NAME}}</span>
+		<a ui-sref="editClue" class="common-btn export-btn move-200">编辑线索</a>
+	</div>
+	<div class="detail-tab-box">
+		<ul class="detail-tab clearfix">
+			<a ui-sref="portrait({id:id})"><li>虚拟人画像</li></a>
+			<a ui-sref="information({id:id})"><li>用户资料详情</li></a>
+			<a href="javascript:void(0);"><li class="cur-tab">用户线索信息</li></a>
+		</ul>
+		<div class="detail-tab-content">
+			<div class="clue-condition b-b clearfix">
+				<div class="clue-library clearfix">
+					<label>线索信息库：</label>
+					<select class="b-w">
+						<option value="">全部线索信息</option>
+						<option value="">搜索引擎：禤先良</option>
+						<option value="">搜索引擎：禤先良+13823650743</option>
+						<option selected value="">搜索引擎：禤先良+桂林电子科技大学</option>
+						<option value="">新浪微博昵称：禤先良</option>
+						<option value="">腾讯微博昵称：禤先良</option>
+					</select>
+				</div>
+				<div class="sequence-type clearfix">
+					<label>排序方式：</label>
+					<div class="sequence-item">
+						<a href="">相关度</a>
+						<a href="">更新时间</a>
+					</div>
+				</div>
+				<div class="update-time clearfix">
+					<label>最近更新时间：</label>
+					<span>2016-05-10 18:54:32</span>
+				</div>
+			</div>
+			<ul class="clue-items">
+				<li class="clue-item">
+					<div class="clue-item-line clearfix">
+						<label>标题：</label>
+						<span>禤先良的微博_腾讯微博</span>
+					</div>
+					<div class="clue-item-line clearfix">
+						<label>摘要：</label>
+						<span>Hi,这是禤先良的腾讯微博,别吝惜你的关注,赶紧登录,和TA互动吧! 申请开通马上登录 禤先良2(@rovio2012)</span>
+					</div>
+					<div class="clue-item-line clearfix">
+						<label>原文地址：</label>
+						<span>t.qq.com/rovio2012</span>
+					</div>
+				</li>
+				<li class="clue-item">
+					<div class="clue-item-line clearfix">
+						<label>标题：</label>
+						<span>禤先良的微博_腾讯微博</span>
+					</div>
+					<div class="clue-item-line clearfix">
+						<label>摘要：</label>
+						<span>Hi,这是禤先良的腾讯微博,别吝惜你的关注,赶紧登录,和TA互动吧! 申请开通马上登录 禤先良2(@rovio2012)</span>
+					</div>
+					<div class="clue-item-line clearfix">
+						<label>原文地址：</label>
+						<span>t.qq.com/rovio2012</span>
+					</div>
+				</li>
+				<li class="clue-item">
+					<div class="clue-item-line clearfix">
+						<label>标题：</label>
+						<span>禤先良的微博_腾讯微博</span>
+					</div>
+					<div class="clue-item-line clearfix">
+						<label>摘要：</label>
+						<span>Hi,这是禤先良的腾讯微博,别吝惜你的关注,赶紧登录,和TA互动吧! 申请开通马上登录 禤先良2(@rovio2012)</span>
+					</div>
+					<div class="clue-item-line clearfix">
+						<label>原文地址：</label>
+						<span>t.qq.com/rovio2012</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<pagingitem></pagingitem>
+<!-- <checkstatus></checkstatus> -->

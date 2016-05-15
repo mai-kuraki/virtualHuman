@@ -1,0 +1,17 @@
+<div class="virtual-man-detail b-w" ng-controller="editClueCtrl" ng-init="initForm()">
+	<div class="v-m-d-title clearfix">
+		<img src="/images/user.jpg">
+		<span>禤先良</span>
+		<a href="javascript:void(0);" class="common-btn export-btn move-200">保存</a>
+	</div>
+	<div class="detail-tab-box">
+		<ul class="detail-tab clearfix">
+			<a ui-sref="portrait"><li>虚拟人画像</li></a>
+			<a ui-sref="information"><li>用户资料详情</li></a>
+			<a href="javascript:void(0);"><li class="cur-tab">用户线索信息</li></a>
+		</ul>
+		<addpersonform></addpersonform>
+		<a href="javascript:void(0);" class="search-submit common-btn">添加</a>
+	</div>
+</div>
+<checkstatus></checkstatus>

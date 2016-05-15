@@ -1,0 +1,60 @@
+<div class="virtual-man-search" ng-controller="searchCtrl">
+	<div class="v-m-s-con b-w clearfix">
+		<h3 class="v-m-s-title">虚拟人搜索条件：</h3>
+		<ul class="search-condition">
+			<li class="clearfix condition-line">
+				<div class="choose-condition">
+					<select class="condition-type b-w">
+						<option disabled>----个人属性----</option>
+						<option>姓名</option>
+						<option selected>生日</option>
+						<option>性别</option>
+						<option disabled>----个人属性----</option>
+						<option>姓名</option>
+						<option>生日</option>
+						<option>性别</option>
+					</select>
+				</div>
+				<i class="fh">：</i>
+				<div class="condition-value">
+					<input type="text" class="c-v-area b-w">
+				</div>
+			</li>
+			<li class="clearfix condition-line">
+				<div class="choose-condition">
+					<select class="condition-type b-w">
+						<option disabled>----个人属性----</option>
+						<option>姓名</option>
+						<option>生日</option>
+						<option>性别</option>
+						<option disabled>----个人属性----</option>
+						<option>姓名</option>
+						<option>生日</option>
+						<option>性别</option>
+					</select>
+				</div>
+				<i class="fh">：</i>
+				<div class="condition-value">
+					<input type="text" class="c-v-area b-w">
+				</div>
+				<a href="javascript:void(0);" class="add-fied common-btn">增加字段</a>
+			</li>
+			<li class="clearfix condition-line">
+				<div class="choose-condition">
+					<label>所属虚拟人库</label>
+				</div>
+				<i class="fh">：</i>
+				<div class="condition-value">
+					<select class="value-select b-w">
+						<option>默认库</option>
+						<option>个人理财库</option>
+						<option>贵金属库</option>
+						<option>促销活动库</option>
+					</select>
+				</div>
+			</li>
+		</ul>
+		<a ui-sref="searchResult" class="search-submit common-btn">搜索</a>
+	</div>
+</div>
+<checkstatus></checkstatus>

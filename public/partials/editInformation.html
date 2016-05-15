@@ -1,0 +1,238 @@
+<div class="virtual-man-detail b-w" ng-controller="editInformationCtrl" ng-init="initInformation()">
+	<mytoast></mytoast>
+	<div class="v-m-d-title clearfix">
+		<img src="{{basic.PHOTO}}">
+		<span>{{basic.NAME}}</span>
+		<a href="javascript:void(0);" ng-click="saveEdit()" class="common-btn export-btn move-200">保存</a>
+	</div>
+	<div class="detail-tab-box">
+		<ul class="detail-tab clearfix">
+			<a ui-sref="portrait({id:id})"><li>虚拟人画像</li></a>
+			<a ui-sref="information({id:id})"><li class="cur-tab">用户资料详情</li></a>
+			<a ui-sref="clue({id:id})"><li>用户线索信息</li></a>
+		</ul>
+		<div class="cut-mask" ng-show="panel" ng-click="hidePanel()"></div>
+		<div class="cut-pic-panel" ng-show="panel">
+			<div class="cut-img-box"
+			ngf-drop ng-model="picFile" 
+			ngf-pattern="image/*">
+				<img-crop image="picFile  | ngfDataUrl"                 
+	            result-image="croppedDataUrl" ng-init="croppedDataUrl=''">
+	            </img-crop>
+			</div>
+			<div class="right-cut-panel">
+				<div class="cut-preview">
+					<img ng-src="{{croppedDataUrl}}" />
+				</div>
+				<a href="javascript:void(0)" class="common-btn confrim-upload-btn move-200" ng-click="confrimUpload(croppedDataUrl, picFile.name)">确认</a>
+				<a href="javascript:void(0)" class="common-btn esc-upload-btn move-200" ng-click="hidePanel()">取消</a>
+			</div>
+		</div>
+		
+		<div class="detail-tab-content">
+			<div class="info-block">
+				<h3 class="info-title b-b">个人属性</h3>
+				<div class="info-detal clearfix">
+					<div class="user-headpic edit-user-headpic" 
+					ngf-select ng-model="picFile" accept="image/*" ng-click="cutPicPanel()">
+						<img src="{{basic.PHOTO}}">
+						<span class="edit-headimg">点击选择修改头像</span>
+					</div>
+					<div class="text-info-item clearfix">
+						<div class="text-info clearfix"><label>姓名：</label>
+							<span><input type="text" class="b-w" ng-model="basic.NAME"></span>
+						</div>
+						<div class="text-info clearfix"><label>身份证号：</label>
+							<span><input type="text" class="b-w" ng-model="basic.ID_NUMBER"></span>
+						</div>
+						<div class="text-info clearfix"><label>性别：</label>
+							<span>
+								<select class="b-w"
+								ng-model="basic.GENDER" 
+								ng-options="library.value as library.text for library in genderLibrary">
+								</select>
+							</span>
+						</div>
+						<div class="text-info clearfix"><label>婚姻状态：</label>
+							<span>
+								<select class="b-w"
+								ng-model="basic.MARRIAGE" 
+								ng-options="library.value as library.text for library in marriageLibrary">
+								</select>
+							</span>
+						</div>
+						<div class="text-info clearfix"><label>国籍：</label>
+							<span><input type="text" class="b-w" ng-model="basic.NATIONALITY"></span>
+						</div>
+						<div class="text-info clearfix"><label>所在地：</label>
+							<span><input type="text" class="b-w" ng-model="basic.LOCATION"></span>
+						</div>
+						<div class="text-info clearfix"><label>生日：</label>
+							<span><input type="text" class="b-w" ng-model="basic.BIRTHDAY"></span>
+						</div>
+						<div class="text-info clearfix"><label>发证地：</label>
+							<span><input type="text" class="b-w" ng-model="basic.ID_ADDRESS"></span>
+						</div>
+
+						<!-- <div class="text-info insert-text-info clearfix">
+							<label class="edit-label">
+								<select class="b-w"
+								ng-model="basicType" 
+								ng-options="library.value as library.text for library in basicLibrary">
+								</select>
+							</label>
+							<span class="short-input">
+								<input type="text" class="b-w" name="{{item.ID}}" ng-model="basicAddVal">
+							</span>
+							<a href="javascript:void(0);" class="common-btn addLine-btn move-200" ng-click="addBasic()">添加</a>
+						</div> -->
+					</div>
+				</div>
+			</div>
+			<div class="info-block">
+				<h3 class="info-title b-b">联系方式</h3>
+				<div class="info-detal clearfix">
+					<div class="info-line clearfix" ng-repeat="item in contact">
+						<label class="edit-label">{{item.TYPE}}：</label>
+						<span>
+							<input type="text" class="b-w" name="{{item.ID}}" ng-model="item.CONTACT">
+						</span>
+					</div>
+					<div class="info-line clearfix" ng-repeat="item in contactAdd">
+						<label class="edit-label">{{item.TYPE}}：</label>
+						<span>
+							<input type="text" class="b-w" name="{{item.ID}}" ng-model="item.CONTACT">
+						</span>
+					</div>
+					<div class="info-line clearfix"><label>
+						<select class="b-w"
+						ng-model="contactType" 
+						ng-options="library.value as library.text for library in contactLibrary">
+						</select>
+						：</label><span class="insert-new-input">
+							<input type="text" class="b-w" ng-model="contactAddVal">
+						</span>
+						<a href="javascript:void(0);" class="common-btn addLine-btn move-200" ng-click="addContact()">添加</a>
+					</div>
+				</div>
+			</div>
+			<div class="info-block">
+				<h3 class="info-title b-b">学习经历</h3>
+				<div class="info-detal clearfix">
+					<div class="info-line clearfix" ng-repeat="item in learning">
+						<label class="edit-label">{{item.MAJOR_GRADE}}：</label>
+						<span>
+							<input type="text" name="{{item.ID}}" class="b-w" value="{{item.DISCRIPTION}}">
+						</span>
+					</div>
+					<div class="info-line clearfix" ng-repeat="item in learningAdd">
+						<label class="edit-label">{{item.MAJOR_GRADE}}：</label>
+						<span>
+							<input type="text" name="{{item.ID}}" class="b-w" ng-model="item.SCHOOL_NAME">
+						</span>
+					</div>
+					<div class="info-line clearfix"><label>
+						<select class="b-w"
+						ng-model="learningType" 
+						ng-options="library.value as library.text for library in learningLibrary">
+						</select>
+						：</label><span class="insert-new-input">
+							<input type="text" class="b-w" ng-model="learningAddVal">
+						</span>
+						<a href="javascript:void(0);" class="common-btn addLine-btn move-200" ng-click="addLearning()">添加</a>
+					</div>
+				</div>
+			</div>
+			<div class="info-block">
+				<h3 class="info-title b-b">社交</h3>
+				<div class="info-detal clearfix">
+					<div class="info-line clearfix" ng-repeat="item in social">
+						<label class="edit-label">{{item.MEDIA_NAME}}：</label>
+						<span class="short-input">
+							<input type="text" class="b-w" name="{{item.ID}}" value="{{item.NICK_NAME}}">
+						</span>
+						<label class="edit-label short-label">注册时间：</label>
+						<span class="short-input">
+							<input type="text" class="b-w" name="{{item.ID}}" value="{{item.REGISTRATION_TIME}}">
+						</span>
+					</div>
+					<div class="info-line clearfix" ng-repeat="item in socialAdd">
+						<label class="edit-label">{{item.MEDIA_NAME}}：</label>
+						<span class="short-input">
+							<input type="text" class="b-w" name="{{item.ID}}" value="{{item.NICK_NAME}}">
+						</span>
+						<label class="edit-label short-label">注册时间：</label>
+						<span class="short-input">
+							<input type="text" class="b-w" name="{{item.ID}}" value="{{item.REGISTRATION_TIME}}">
+						</span>
+					</div>
+				</div>
+				<div class="info-line clearfix"><label>
+					<select class="b-w"
+					ng-model="socialType" 
+					ng-options="library.value as library.text for library in socialLibrary">
+					</select>
+					：</label>
+					<span class="insert-new-input short-input">
+						<input type="text" class="b-w" ng-model="socialNick">
+					</span>
+					<label class="edit-label short-label">注册时间：</label>
+					<span class="insert-new-input insert-short-input">
+						<input type="text" class="b-w" name="{{item.ID}}" ng-model="socialTime">
+					</span>
+					<a href="javascript:void(0);" class="common-btn addLine-btn move-200" ng-click="addSocial()">添加</a>
+				</div>
+			</div>
+			<div class="info-block">
+				<h3 class="info-title b-b">金融支付</h3>
+				<div class="info-detal clearfix">
+					<div class="info-line clearfix" ng-repeat="item in payment">
+						<label class="edit-label">{{item.PAYMENT_PLATFORM}}：</label>
+						<span>
+							<input type="text" class="b-w" name="{{item.ID}}" ng-model="item.PAYMENT_ACCOUNT">
+						</span>
+					</div>
+					<div class="info-line clearfix" ng-repeat="item in paymentAdd">
+						<label class="edit-label">{{item.PAYMENT_PLATFORM}}：</label>
+						<span>
+							<input type="text" class="b-w" name="{{item.ID}}" ng-model="item.PAYMENT_ACCOUNT">
+						</span>
+					</div>
+				</div>
+				<div class="info-line clearfix"><label>
+					<select class="b-w"
+					ng-model="paymentType" 
+					ng-options="library.value as library.text for library in paymentLibrary">
+					</select>
+					：</label><span class="insert-new-input">
+						<input type="text" class="b-w" ng-model="paymentAddVal">
+					</span>
+					<a href="javascript:void(0);" class="common-btn addLine-btn move-200" ng-click="addPayment()">添加</a>
+				</div>
+			</div>
+			<div class="info-block">
+				<h3 class="info-title b-b">事件</h3>
+				<div class="info-detal clearfix">
+					<div class="info-line clearfix" ng-repeat="item in event">
+						<label class="edit-label"><input type="text" class="b-w" name="{{item.ID}}" ng-model="item.TIME"> ：</label>
+						<span><input type="text" class="b-w" name="{{item.ID}}" ng-model="item.EVENT_CONTENT"></span>
+					</div>
+					<div class="info-line clearfix" ng-repeat="item in eventAdd">
+						<label class="edit-label"><input type="text" class="b-w" name="{{item.ID}}" ng-model="item.TIME"> ：</label>
+						<span><input type="text" class="b-w" name="{{item.ID}}" ng-model="item.EVENT_CONTENT"></span>
+					</div>
+				</div>
+				<div class="info-line clearfix">
+					<label>
+						<input type="text" class="b-w" name="{{item.ID}}" ng-model="eventTime"> ：
+					</label><span class="insert-new-input">
+						<input type="text" class="b-w" ng-model="eventContent">
+					</span>
+					<a href="javascript:void(0);" class="common-btn addLine-btn move-200" ng-click="addEvent()">添加</a>
+				</div>
+			</div>
+			<a href="javascript:void(0);" class="search-submit common-btn" ng-click="saveEdit()">保存</a>
+		</div>
+	</div>
+</div>
+<!-- <checkstatus></checkstatus> -->

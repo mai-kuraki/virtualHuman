@@ -2,42 +2,30 @@
 	<div class="v-m-s-con b-w clearfix">
 		<h3 class="v-m-s-title">虚拟人搜索条件：</h3>
 		<ul class="search-condition">
-			<li class="clearfix condition-line">
+			<li class="clearfix condition-line" ng-repeat="item in conditionItem">
 				<div class="choose-condition">
-					<select class="condition-type b-w">
-						<option disabled>----个人属性----</option>
-						<option>姓名</option>
-						<option selected>生日</option>
-						<option>性别</option>
-						<option disabled>----个人属性----</option>
-						<option>姓名</option>
-						<option>生日</option>
-						<option>性别</option>
+					<select class="condition-type b-w"
+						ng-model="item.conditionName" 
+						ng-options="library.text as library.text group by library.group for library in searchLibrary">
 					</select>
 				</div>
 				<i class="fh">：</i>
 				<div class="condition-value">
-					<input type="text" class="c-v-area b-w">
+					<input type="text" class="c-v-area b-w" ng-model="item.conditionValue">
 				</div>
 			</li>
 			<li class="clearfix condition-line">
 				<div class="choose-condition">
-					<select class="condition-type b-w">
-						<option disabled>----个人属性----</option>
-						<option>姓名</option>
-						<option>生日</option>
-						<option>性别</option>
-						<option disabled>----个人属性----</option>
-						<option>姓名</option>
-						<option>生日</option>
-						<option>性别</option>
+					<select class="condition-type b-w"
+						ng-model="defaultAddSearch" 
+						ng-options="library.text as library.text group by library.group for library in searchLibrary">
 					</select>
 				</div>
 				<i class="fh">：</i>
 				<div class="condition-value">
-					<input type="text" class="c-v-area b-w">
+					<input type="text" class="c-v-area b-w" ng-model="conditionAddValue">
 				</div>
-				<a href="javascript:void(0);" class="add-fied common-btn">增加字段</a>
+				<a href="javascript:void(0);" class="add-fied common-btn move-200" ng-click="addCondition()">增加字段</a>
 			</li>
 			<li class="clearfix condition-line">
 				<div class="choose-condition">
@@ -45,16 +33,14 @@
 				</div>
 				<i class="fh">：</i>
 				<div class="condition-value">
-					<select class="value-select b-w">
-						<option>默认库</option>
-						<option>个人理财库</option>
-						<option>贵金属库</option>
-						<option>促销活动库</option>
+					<select class="value-select b-w"
+						ng-model="defaultVirtual" 
+						ng-options="library.value as library.text for library in virtualLibrary">
 					</select>
 				</div>
 			</li>
 		</ul>
-		<a ui-sref="searchResult" class="search-submit common-btn">搜索</a>
+		<a class="search-submit common-btn move-200" ng-click="toSearch()">搜索</a>
 	</div>
 </div>
-<checkstatus></checkstatus>
+<!-- <checkstatus></checkstatus> -->

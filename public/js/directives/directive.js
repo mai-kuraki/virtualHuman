@@ -115,7 +115,8 @@ app.directive('addpersonform',function(){
 // 			})
 // 		}
 // 	}
-// })
+// });
+
 app.directive('jsmind',function(){
 	return{
 		restrict:'AECM',

@@ -1,13 +1,12 @@
-<div class="virtual-man-library" ng-controller="databaseCtrl">
+<div class="virtual-man-library" ng-controller="searchResultCtrl" ng-init="initPage()">
 	<div class="v-m-l-title b-w clearfix">
 		<a ui-sref="search" class="app-back move-200"><i><</i>返回</a>
 		<label>搜索条件：</label>
 		<ul class="selected-condition clearfix">
-			<li>姓名：禤先良</li>
-			<li>手机号：13823650743</li>
+			<li ng-repeat="item in conditionItem">{{item.conditionName}}：{{item.conditionValue}}</li>
 		</ul>
 	</div>
 	<personitem></personitem>
 	<pagingitem></pagingitem>
 </div>
-<checkstatus></checkstatus>
+<!-- <checkstatus></checkstatus> -->

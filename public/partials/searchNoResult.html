@@ -1,8 +1,8 @@
-<div class="virtual-man-detail b-w" ng-controller="searchNoResultCtrl" ng-init="initForm()">
+<div class="virtual-man-detail b-w" ng-controller="searchNoResultCtrl">
 	<h3 class="v-m-s-title">无匹配结果，可添加为新的虚拟人：</h3>
 	<div class="detail-tab-box">
 		<addpersonform></addpersonform>
-		<a href="javascript:void(0);" class="search-submit common-btn">添加</a>
+		<a href="javascript:void(0);" class="search-submit common-btn" ng-click="toAdd()">添加</a>
 	</div>
 </div>
-<checkstatus></checkstatus>
+<!-- <checkstatus></checkstatus> -->

@@ -3,6 +3,7 @@ var router = express.Router();
 var userServerController = require('../controllers/user.server.controller.js');
 var addHumanController = require('../controllers/add.server.controller.js');
 var informationController = require('../controllers/information.server.controller.js');
+var searchController = require('../controllers/search.server.controller.js');
 
 /***********************页面url****************************/ 
 // 首页
@@ -61,5 +62,13 @@ router.get('/getClue',function(req, res, next){
 // 确认修改虚拟人信息
 router.post('/saveInformation',function(req, res, next){
 	informationController.saveInformation(req, res, next);
+});
+// 通过条件搜索虚拟人
+router.post('/searchByCondition',function(req, res, next){
+	searchController.searchByCondition(req, res, next);
+});
+// 添加新虚拟人
+router.post('/addNewHuman',function(req, res, next){
+	addHumanController.addNewHuman(req, res, next);
 })
 module.exports = router;

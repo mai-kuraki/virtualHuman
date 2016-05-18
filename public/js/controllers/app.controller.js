@@ -1,8 +1,9 @@
 // 顶级
-app.controller('appContentCtrl',['$scope','aside','$http',function($scope,aside,$http){
+app.controller('appContentCtrl',['$scope','aside','$http','$rootScope',function($scope,aside,$http,$rootScope){
 	$scope.asideShrink = function(){
 		aside.doAsideShrink();
 	}
+	$rootScope.pageSize = 5;
 }]);
 
 
@@ -34,16 +35,12 @@ app.controller('asideMenuCtrl',['$scope','$http',function($scope,aside,$http){
 
 
 // 虚拟人数据库 
-app.controller('databaseCtrl',['$scope','$http','checkOperating','waitingMask',function($scope,$http,checkOperating,waitingMask){
+app.controller('databaseCtrl',['$scope','$http','checkOperating','waitingMask','$rootScope',function($scope,$http,checkOperating,waitingMask,$rootScope){
 	
 	$scope.inputName = 'user';
 	$scope.library = [];
 
-	$scope.$on('getItemData',function (e, data){
-		waitingMask.showMask();
-		var curPage = data.curPage;
-		var pageSize = data.pageSize;
-		$scope.library = [];
+	$scope.applyData = function(curPage,pageSize){
 		$http.get(
 			'/gethumanItemData?curPage=' + curPage + '&pageSize=' + pageSize
 			).success(function (data){
@@ -54,6 +51,16 @@ app.controller('databaseCtrl',['$scope','$http','checkOperating','waitingMask',f
 				},100);
 				waitingMask.hideMask();
 			})
+	};
+
+	$scope.applyData(1,$rootScope.pageSize);
+
+	$scope.$on('getItemData',function (e, data){
+		waitingMask.showMask();
+		var curPage = data.curPage;
+		var pageSize = data.pageSize;
+		$scope.library = [];
+		$scope.applyData(curPage,pageSize);
 	})
 
 }]);
@@ -82,10 +89,9 @@ app.controller('personItemCtrl',['$scope','checkOperating',function($scope,check
 }])
 
 // 分页 
-app.controller('pagingCtrl',['$scope','$http',function($scope,$http){
+app.controller('pagingCtrl',['$scope','$http','$rootScope',function($scope,$http,$rootScope){
 	$scope.curPage = 1;
-	$scope.pageSize = 2;
-	$scope.pageCount = 0;
+	$rootScope.pageCount = 0;
 	$scope.isFirst = '';
 	$scope.isLast = '';
 	$scope.pagingData = [];
@@ -102,7 +108,7 @@ app.controller('pagingCtrl',['$scope','$http',function($scope,$http){
 		}
 	};
 	$scope.nextPage = function(){
-		if($scope.curPage < $scope.pageCount){
+		if($scope.curPage < $rootScope.pageCount){
 			$scope.curPage = $scope.curPage + 1;
 			$scope.toGetData();	
 		}
@@ -113,9 +119,6 @@ app.controller('pagingCtrl',['$scope','$http',function($scope,$http){
 			$scope.toGetData();	
 		}
 	};
-	$scope.initPage = function(){
-		$scope.toGetData();
-	}
 
 	$scope.toGetData = function(){
 		$scope.pagingData = [];
@@ -123,18 +126,18 @@ app.controller('pagingCtrl',['$scope','$http',function($scope,$http){
 	}
 	
 	$scope.$on('transferPagging',function (e, data){
-		$scope.pageCount = data.pageCount;
+		$rootScope.pageCount = data.pageCount;
 		if($scope.curPage == 1){
 			$scope.isFirst = 'page-disable';
 		}else{
 			$scope.isFirst = '';
 		}
-		if($scope.curPage == $scope.pageCount){
+		if($scope.curPage == $rootScope.pageCount){
 			$scope.isLast = 'page-disable';
 		}else{
 			$scope.isLast = '';
 		}
-		for(var i = 0;i < $scope.pageCount;i ++){
+		for(var i = 0;i < $rootScope.pageCount;i ++){
 			var temp = {};
 			temp.text = i + 1;
 			temp.className = '';
@@ -148,14 +151,211 @@ app.controller('pagingCtrl',['$scope','$http',function($scope,$http){
 
 
 // 搜索虚拟人
-app.controller('searchCtrl',['$scope','$http',function($scope,$http){
+app.controller('searchCtrl',['$scope','$http','waitingMask','myToast','$state','$rootScope',function($scope,$http,waitingMask,myToast,$state,$rootScope){
+	$rootScope.conditionItem = [
+		{conditionName:'姓名',conditionValue:''}
+	];
+	$scope.defaultSearch = '姓名';
+	$scope.defaultAddSearch = '姓名';
+	$scope.conditionAddValue = '';
+	$scope.searchLibrary = [
+		{text:'姓名',group:'------个人属性------'},
+		{text:'性别',group:'------个人属性------'},
+		{text:'民族',group:'------个人属性------'},
+		{text:'血型',group:'------个人属性------'},
+		{text:'身份证',group:'------个人属性------'},
+		{text:'国籍',group:'------个人属性------'},
+		{text:'婚姻',group:'------个人属性------'},
+		{text:'手机',group:'------联系方式------'},
+		{text:'邮箱',group:'------联系方式------'},
+		{text:'地址',group:'------联系方式------'},
+		{text:'小学',group:'------学习经历------'},
+		{text:'中学',group:'------学习经历------'},
+		{text:'高中',group:'------学习经历------'},
+		{text:'大学',group:'------学习经历------'},
+		{text:'培训',group:'------学习经历------'},
+		{text:'学历',group:'------学习经历------'},
+		{text:'微信',group:'------社交媒体------'},
+		{text:'大众点评网',group:'------社交媒体------'},
+		{text:'领英',group:'------社交媒体------'},
+		{text:'QQ空间',group:'------社交媒体------'},
+		{text:'新浪微博',group:'------社交媒体------'},
+		{text:'腾讯微博',group:'------社交媒体------'},
+		{text:'facebook',group:'------社交媒体------'}
+	];
+	$scope.conditionMap = {
+		'姓名':{table:'character_basic_information',fieldLabel:'',field:'NAME',label:'basic'},
+		'性别':{table:'character_basic_information',fieldLabel:'',field:'GENDER',label:'basic'},
+		'民族':{table:'character_basic_information',fieldLabel:'',field:'NATION',label:'basic'},
+		'血型':{table:'character_basic_information',fieldLabel:'',field:'BLOOD_TYPE',label:'basic'},
+		'身份证':{table:'character_basic_information',fieldLabel:'',field:'ID_NUMBER',label:'basic'},
+		'国籍':{table:'character_basic_information',fieldLabel:'',field:'NATIONALITY',label:'basic'},
+		'婚姻':{table:'character_basic_information',fieldLabel:'',field:'MARRIAGE',label:'basic'},
+		'手机':{table:'character_contact_way',fieldLabel:'TYPE',field:'CONTACT',label:'contact'},
+		'邮箱':{table:'character_contact_way',fieldLabel:'TYPE',field:'CONTACT',label:'contact'},
+		'地址':{table:'character_contact_way',fieldLabel:'TYPE',field:'CONTACT',label:'contact'},
+		'小学':{table:'character_learning_experience',fieldLabel:'MAJOR_GRADE',field:'DISCRIPTION',label:'learning'},
+		'中学':{table:'character_learning_experience',fieldLabel:'MAJOR_GRADE',field:'DISCRIPTION',label:'learning'},
+		'高中':{table:'character_learning_experience',fieldLabel:'MAJOR_GRADE',field:'DISCRIPTION',label:'learning'},
+		'大学':{table:'character_learning_experience',fieldLabel:'MAJOR_GRADE',field:'DISCRIPTION',label:'learning'},
+		'培训':{table:'character_learning_experience',fieldLabel:'MAJOR_GRADE',field:'DISCRIPTION',label:'learning'},
+		'学历':{table:'character_learning_experience',fieldLabel:'MAJOR_GRADE',field:'DISCRIPTION',label:'learning'},
+		'微信':{table:'character_social_media',fieldLabel:'MEDIA_NAME',field:'NICK_NAME',label:'social'},
+		'大众点评网':{table:'character_social_media',fieldLabel:'MEDIA_NAME',field:'NICK_NAME',label:'social'},
+		'领英':{table:'character_social_media',fieldLabel:'MEDIA_NAME',field:'NICK_NAME',label:'social'},
+		'QQ空间':{table:'character_social_media',fieldLabel:'MEDIA_NAME',field:'NICK_NAME',label:'social'},
+		'新浪微博':{table:'character_social_media',fieldLabel:'MEDIA_NAME',field:'NICK_NAME',label:'social'},
+		'腾讯微博':{table:'character_social_media',fieldLabel:'MEDIA_NAME',field:'NICK_NAME',label:'social'},
+		'facebook':{table:'character_social_media',fieldLabel:'MEDIA_NAME',field:'NICK_NAME',label:'social'}
+	};
+
+	$rootScope.defaultVirtual = '默认库';
+	$scope.virtualLibrary = [
+		{text:'默认库',value:'默认库'},
+		{text:'个人理财库',value:'个人理财库'},
+		{text:'贵金属库',value:'贵金属库'},
+		{text:'促销活动库',value:'促销活动库'},
+	];
+
+	$scope.addCondition = function(){
+		var temp = {};
+		temp.conditionName = $scope.defaultAddSearch;
+		temp.conditionValue = $scope.conditionAddValue;
+		$rootScope.conditionItem.push(temp);
+		$scope.defaultAddSearch = '姓名';
+		$scope.conditionAddValue = '';
+	};
+
+	$scope.toSearch = function(){
+		waitingMask.showMask('查询中，请稍后...');
+		for(var i in $rootScope.conditionItem){
+			var tableName = $scope.conditionMap[$rootScope.conditionItem[i].conditionName].table;
+			var field = $scope.conditionMap[$rootScope.conditionItem[i].conditionName].field;
+			var fieldLabel = $scope.conditionMap[$rootScope.conditionItem[i].conditionName].fieldLabel;
+			var label = $scope.conditionMap[$rootScope.conditionItem[i].conditionName].label;
+			$rootScope.conditionItem[i].tableName = tableName;
+			$rootScope.conditionItem[i].field = field;
+			$rootScope.conditionItem[i].fieldLabel = fieldLabel;
+			$rootScope.conditionItem[i].label = label;
+		}
+		$http.post(
+				'/searchByCondition',
+				{
+					condition:$rootScope.conditionItem,
+					virtualLibrary:$rootScope.defaultVirtual,
+					pageSize:$rootScope.pageSize,
+					curPage:1
+				}
+			).success(function (data){
+				waitingMask.hideMask();
+				// console.log(data);
+				if(data.res == 0){
+					$scope.toastText = '查找失败，系统错误';
+					myToast.makeToast(1500,300);
+				}else if(data.res == 1){
+					$rootScope.itemData = data.itemData;
+					$rootScope.pageCount = data.pageCount;
+					$state.go('searchResult');
+				}else if(data.res == 2){
+					$state.go('searchNoResult');
+				}
+			})
+	}
+}]);
+
+
+// 搜索新人结果(有结果)
+app.controller('searchResultCtrl',['$scope','$rootScope','waitingMask','$http','checkOperating',function($scope,$rootScope,waitingMask,$http,checkOperating){
+	$scope.inputName = 'user';
+	$scope.library = $rootScope.itemData;
+
+	$scope.applyData = function(curPage,pageSize){
+		$http.post(
+			'/searchByCondition',
+			{
+				condition:$rootScope.conditionItem,
+				virtualLibrary:$rootScope.defaultVirtual,
+				pageSize:pageSize,
+				curPage:curPage
+			}
+			).success(function (data){
+				$scope.library = data.itemData;
+				$scope.$broadcast('transferPagging',{pageCount:data.pageCount});
+				setTimeout(function(){
+					checkOperating.isDefultChecked($scope.inputName);
+				},100);
+				waitingMask.hideMask();
+			})
+	};
+
+	$scope.applyData(1,$rootScope.pageSize);
+
+	$scope.$on('getItemData',function (e, data){
+		waitingMask.showMask();
+		var curPage = data.curPage;
+		$scope.library = [];
+		$scope.applyData(curPage,$rootScope.pageSize)
+	});
+}]);
+
+
+// 搜索无结果
+app.controller('searchNoResultCtrl',['$scope','$http','$rootScope','waitingMask','myToast',function($scope,$http,$rootScope,waitingMask,myToast){
+	$scope.pageName = 'searchNoResult';
+	$scope.iniFormData = $rootScope.conditionItem;
+	$scope.initForm = function(){
+		$scope.$broadcast('receiveInitData',{data:$scope.iniFormData});
+	};
+
+	$scope.$on('receiveData',function(e,data){
+		console.log(data.data)
+		$http.post(
+			'/addNewHuman',
+			{data:data.data}
+			).success(function (data){
+				waitingMask.hideMask();
+				if(data.res == 1){
+					$scope.toastText = '添加虚拟人成功';
+					myToast.makeToast(1500,300);
+				}else{
+					$scope.toastText = data.msg;
+					myToast.makeToast(1500,300);
+				}
+			})
+	});
+	$scope.toAdd = function(){
+		$scope.$broadcast('toSubmit');
+	}
+	
 
 }]);
 
 
 // 添加虚拟人
-app.controller('addCtrl',['$scope','$http',function($scope,$http){
+app.controller('addCtrl',['$scope','$http','$rootScope','waitingMask','myToast',function($scope,$http,$rootScope,waitingMask,myToast){
 	$scope.pageName = 'add';
+	$scope.initForm = function(){
+		$scope.$broadcast('receiveInitData',{data:$scope.iniFormData});
+	};
+	$scope.$on('receiveData',function(e,data){
+		console.log(data.data)
+		$http.post(
+			'/addNewHuman',
+			{data:data.data}
+			).success(function (data){
+				waitingMask.hideMask();
+				if(data.res == 1){
+					$scope.toastText = '添加虚拟人成功';
+					myToast.makeToast(1500,300);
+				}else{
+					$scope.toastText = data.msg;
+					myToast.makeToast(1500,300);
+				}
+			})
+	});
+	$scope.toAdd = function(){
+		$scope.$broadcast('toSubmit');
+	}
 }]);
 
 
@@ -165,28 +365,102 @@ app.controller('editClueCtrl',['$scope','$http',function($scope,$http){
 }]);
 
 
-// 搜索无结果
-app.controller('searchNoResultCtrl',['$scope','$http',function($scope,$http){
-	$scope.pageName = 'searchNoResult';
-}]);
+
 
 
 // 添加虚拟人表单
-app.controller('addPersonFormCtrl',['$scope','$http',function($scope,$http){
-	$scope.defaultFields = 2;
+app.controller('addPersonFormCtrl',['$scope','$http','myToast','waitingMask',function($scope,$http,myToast,waitingMask){
+	$scope.defaultFields = '生日';
 	$scope.customFields = [
-		{text:'自定义字段',value:null,selected:''},
-		{text:'姓名',value:1,selected:'selected'},
-		{text:'生日',value:2,selected:''},
-		{text:'性别',value:3,selected:''}
+		{text:'自定义字段',value:null},
+		{text:'生日',value:'生日'},
+		{text:'性别',value:'性别'}
 	];
 	$scope.defaultLibrary = 1;
 	$scope.personLibrary = [
-		{text:'默认库',value:1,selected:'selected'},
-		{text:'个人理财库',value:2,selected:''},
-		{text:'贵金属库',value:3,selected:''},
-		{text:'促销活动库',value:4,selected:''}
+		{text:'默认库',value:1},
+		{text:'个人理财库',value:2},
+		{text:'贵金属库',value:3},
+		{text:'促销活动库',value:4}
 	];
+
+	$scope.name = '';
+	$scope.phone = '';
+	$scope.email = '';
+	$scope.idNumber = '';
+	$scope.QQ = '';
+	$scope.wechat = '';
+	$scope.sinaNick = '';
+	$scope.customVal = '';
+
+	$scope.fieldLabel = ['姓名','手机号','电子邮箱','身份证号','QQ号','微信号','新浪微博昵称'];
+	$scope.fieldItem = [];
+
+	$scope.fieldMap = {
+		'姓名':{table:'character_basic_information',fieldLabel:'',field:'NAME',label:'basic'},
+		'身份证号':{table:'character_basic_information',fieldLabel:'',field:'ID_NUMBER',label:'basic'},
+		'生日':{table:'character_basic_information',fieldLabel:'',field:'BIRTHDAY',label:'basic'},
+		'性别':{table:'character_basic_information',fieldLabel:'',field:'GENDER',label:'basic'},
+		'手机号':{table:'character_contact_way',fieldLabel:'TYPE',field:'CONTACT',label:'contact'},
+		'电子邮箱':{table:'character_contact_way',fieldLabel:'TYPE',field:'CONTACT',label:'contact'},
+		'QQ号':{table:'character_social_media',fieldLabel:'MEDIA_NAME',field:'NICK_NAME',label:'social'},
+		'微信号':{table:'character_social_media',fieldLabel:'MEDIA_NAME',field:'NICK_NAME',label:'social'},
+		'新浪微博昵称':{table:'character_social_media',fieldLabel:'MEDIA_NAME',field:'NICK_NAME',label:'social'}
+	};
+
+	$scope.$on('toSubmit',function(e){
+		waitingMask.showMask('保存中，请稍后...');
+		for(var i in $scope.fieldItem){
+			var tableName = $scope.fieldMap[$scope.fieldItem[i].addFieldLabel].table;
+			var field = $scope.fieldMap[$scope.fieldItem[i].addFieldLabel].field;
+			var fieldLabel = $scope.fieldMap[$scope.fieldItem[i].addFieldLabel].fieldLabel;
+			var label = $scope.fieldMap[$scope.fieldItem[i].addFieldLabel].label;
+			$scope.fieldItem[i].tableName = tableName;
+			$scope.fieldItem[i].field = field;
+			$scope.fieldItem[i].fieldLabel = fieldLabel;
+			$scope.fieldItem[i].label = label;
+		}
+		$scope.$emit('receiveData',{data:$scope.fieldItem});
+	});
+
+	$scope.$on('receiveInitData',function(e,data){
+		console.log(data);
+		for(var i in $scope.fieldLabel){
+			$scope.v = '';
+			for(var j in data.data){
+				console.log(data.data[j].conditionName+'----------'+$scope.fieldLabel[i]);
+				if($scope.fieldLabel[i].indexOf(data.data[j].conditionName) > -1){
+					$scope.v = data.data[j].conditionValue;
+				}
+			}
+			var temp = {};
+			temp.addFieldLabel = $scope.fieldLabel[i];
+			temp.addFieldValue = $scope.v;
+			$scope.fieldItem.push(temp);
+		}
+	});
+
+	$scope.addNewFeild = function(){
+		// console.log($scope.fieldItem);
+		for(var i in $scope.fieldItem){
+			if($scope.fieldItem[i].addFieldLabel == $scope.defaultFields){
+				$scope.toastText = '该字段已存在';
+				myToast.makeToast(1500);
+				return false;
+			}
+		}
+		if(!$scope.customVal){
+			$scope.toastText = '请先输入值';
+			myToast.makeToast(1500);
+			return false;
+		}
+		var temp = {};
+		temp.addFieldLabel = $scope.defaultFields;
+		temp.addFieldValue = $scope.customVal;
+		$scope.fieldItem.push(temp);
+		$scope.defaultFields = '生日';
+		$scope.customVal = '';
+	}
 }]);
 
 
@@ -365,7 +639,7 @@ app.controller('editInformationCtrl',['$scope','$http','waitingMask','$statePara
 	$scope.addLearning = function(){
 		if($scope.learningAddVal != ''){
 			var temp = {USER_ID:$scope.id};
-			temp.SCHOOL_NAME = $scope.learningAddVal;
+			temp.DISCRIPTION = $scope.learningAddVal;
 			temp.MAJOR_GRADE = $scope.learningType;
 			$scope.learningAdd.push(temp);
 			$scope.learningAddVal = '';
@@ -393,7 +667,7 @@ app.controller('editInformationCtrl',['$scope','$http','waitingMask','$statePara
 	$scope.addSocial = function(){
 		if($scope.socialNick != ''){
 			var temp = {USER_ID:$scope.id};
-			temp.MEDIA_NAME = $scope.learningType;
+			temp.MEDIA_NAME = $scope.socialType;
 			temp.NICK_NAME = $scope.socialNick;
 			temp.REGISTRATION_TIME = $scope.socialTime;
 			$scope.socialAdd.push(temp);
